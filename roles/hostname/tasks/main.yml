@@ -1,0 +1,6 @@
+---
+# tasks file for hostname
+- name: "Update hostname to {{ homelab_hostname }}"
+  hostname:
+    name: "{{ homelab_hostname }}"
+  become: yes
