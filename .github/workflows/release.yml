@@ -20,8 +20,11 @@ jobs:
         id: new_version
         run: echo "::set-output name=version::$( echo ${{ steps.current_version.outputs.version }} | awk -F. '{$NF = $NF +1;} 1' | sed 's/ /./g' )"
 
-      - name: Update version in galaxy.yml
-        run: 'sed -i "s@version: ${{ steps.current_version.outputs.version }}@version: ${{ steps.new_version.outputs.version }}@g" galaxy.yml'
+      - name: Debug version
+        run: 'echo "Old: ${{ steps.current_version.outputs.version }} New: ${{ steps.current_version.outputs.version }}'
+
+#      - name: Update version in galaxy.yml
+#        run: 'sed -i "s@version: ${{ steps.current_version.outputs.version }}@version: ${{ steps.new_version.outputs.version }}@g" galaxy.yml'
 
       - name: Cat updated galaxy file
         run: cat galaxy.yml
