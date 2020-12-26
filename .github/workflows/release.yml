@@ -42,7 +42,7 @@ jobs:
           cp -rf $directories build/src
         env:
           files: "README.md galaxy.yml"
-          directories: "playbooks roles"
+          directories: "roles"
 
       - name: Build Ansible Collection
         run: ansible-galaxy collection build build/src --force --output-path build/dist
