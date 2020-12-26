@@ -1,9 +1,8 @@
 name: 'ansible_homelab_collection CI'
 on:
-  workflow_dispatch:
-#  push:
-#    branches:
-#      - main
+  push:
+    branches:
+      - main
 
 jobs:
   release:
@@ -55,7 +54,7 @@ jobs:
         run: find ./build
 
       - name: Deploy Collection to ansible galaxy
-        run: ansible-galaxy collection publish build/dist/codersparks-homelabe_collection-${{ steps.versionbump.outputs.version }}.tar.gz
+        run: ansible-galaxy collection publish build/dist/codersparks-homelabe_collection-${{ steps.versionbump.outputs.version }}.tar.gz --api-key ${{ secrets.GALAXY_API_KEY }}
 
       - name: Commit changes etc
         run: |
