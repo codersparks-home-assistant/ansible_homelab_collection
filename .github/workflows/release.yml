@@ -1,0 +1,27 @@
+name: 'ansible_homelab_collection CI'
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get current version
+        id: current_version
+        run: echo "::set-output name=version::$(grep version galaxy.yml | awk -F'"' '{ print $2 }')"
+
+      - name: Calculate new version
+        id: new_version
+        run: echo "::set-output name=version::$( echo ${{ steps.current_version.outputs.version }} | awk -F. '{$NF = $NF +1;} 1' | sed 's/ /./g' )"
+
+      - name: Update version in galaxy.yml
+        run: 'sed -i "s@version: ${{ steps.current_version.outputs.version }}@version: ${{ steps.new_version.outputs.version }}@g" galaxy.yml'
+
+      - name: Cat updated galaxy file
+        run: cat galaxy.yml

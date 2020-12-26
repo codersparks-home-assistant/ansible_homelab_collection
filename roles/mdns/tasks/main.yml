@@ -1,0 +1,24 @@
+---
+- name: "Configure firewall for mdns"
+  firewalld:
+    service: mdns
+    permanent: yes
+    state: enabled
+    zone: public
+    immediate: yes
+  become: yes
+
+- name: "Install Epel Release"
+  package:
+    name: epel-release
+    state: installed
+  become: yes
+
+- name: "Install packages for mDNS"
+  package:
+    name:
+      - nss-mdns
+      - avahi
+    state: installed
+  become: yes
+  notify: mdns-service

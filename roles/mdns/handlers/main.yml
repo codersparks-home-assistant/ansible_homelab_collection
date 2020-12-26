@@ -1,0 +1,7 @@
+---
+- name: mdns-service
+  service:
+    name: avahi-daemon
+    state: reloaded
+    enabled: yes
+  become: yes
