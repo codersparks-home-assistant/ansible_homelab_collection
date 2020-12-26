@@ -29,10 +29,14 @@ jobs:
         run: 'grep "version:" galaxy.yml'
 
       - name: Bump version in galaxy.yml
-        run: python build_utils/bump_version.py ./galaxy.yml
+        id: versionbump
+        run: echo "::set-output name=version::$(python build_utils/bump_version.py ./galaxy.yml)"
 
       - name: Get updated galaxy file version
         run: 'grep "version:" galaxy.yml'
+
+      - name: Get saved version
+        run: 'echo ${{ steps.versionbump.outputs.version }}'
 
       - name: Copy files and directories to source
         run: |
