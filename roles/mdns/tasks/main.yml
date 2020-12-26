@@ -21,4 +21,10 @@
       - avahi
     state: installed
   become: yes
-  notify: mdns-service
+
+- name: "Restart service for mDNS"
+  service:
+    name: avahi-daemon
+    state: restarted
+    enabled: yes
+  become: yes
