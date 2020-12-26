@@ -53,3 +53,14 @@ jobs:
 
       - name: List build contents
         run: find ./build
+
+      - name: Deploy Collection to ansible galaxy
+        run: ansible-galaxy collection publish build/dist/codersparks-homelabe_collection-${{ steps.versionbump.outputs.version }}.tar.gz
+
+      - name: Commit changes etc
+        run: |
+          git add -A
+          git commit -am "Performing release for version ${{ steps.versionbump.outputs.version }}"
+          git push
+          git tag -a "v${{ steps.versionbump.outputs.version }}" -m "Performing release for version ${{ steps.versionbump.outputs.version }}"
+          git push --tags
