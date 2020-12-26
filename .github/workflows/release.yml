@@ -17,7 +17,7 @@ jobs:
 
       - name: Get current version
         id: current_version
-        run: echo "::set-output name=version::$(grep version galaxy.yml | awk -F'"' '{ print $2 }')"
+        run: echo "::set-output name=version::$(grep version galaxy.yml | cut -d" " -f2)"
 
       - name: Calculate new version
         id: new_version
