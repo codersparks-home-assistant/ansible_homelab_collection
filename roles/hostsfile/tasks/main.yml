@@ -1,0 +1,8 @@
+---
+# tasks file for hostsfile
+- name: Add hosts to /etc/hosts
+  lineinfile:
+    regexp: "{{ item.hostname }}"
+    line: "{{ item.ip }} {{ item.hostname }}.{{ codersparks.homelab.domain }} {{ item.hostname }}"
+  loop: "{{ codersparks.homelab.hosts }}"
+  become: yes
