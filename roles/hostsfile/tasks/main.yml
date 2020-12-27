@@ -4,5 +4,6 @@
   lineinfile:
     regexp: "{{ item.hostname }}"
     line: "{{ item.ip }} {{ item.hostname }}.{{ codersparks.homelab.domain }} {{ item.hostname }}"
+    path: /etc/hosts
   loop: "{{ codersparks.homelab.hosts }}"
   become: yes

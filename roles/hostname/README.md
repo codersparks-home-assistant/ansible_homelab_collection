@@ -11,7 +11,7 @@ None
 Role Variables
 --------------
 
-homelab_hostname: Required - The hostname to set
+codersparks.homelab.hostname: Required - The hostname to set
 
 Dependencies
 ------------
