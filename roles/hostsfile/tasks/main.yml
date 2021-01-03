@@ -1,5 +1,13 @@
 ---
 # tasks file for hostsfile
+# Cloud config seems to add a line for loopback address to hostname so we remove that if present
+- name: Remove cloud config hosts line to loopback
+  lineinfile:
+    regexp: "127.0.0.1 localhost {{ codersparks.homelab.hostname }}"
+    state: absent
+    path: /etc/hosts
+  become: yes
+
 - name: Add hosts to /etc/hosts
   lineinfile:
     regexp: "{{ item.hostname }}"
@@ -7,3 +15,4 @@
     path: /etc/hosts
   loop: "{{ codersparks.homelab.hosts }}"
   become: yes
+
